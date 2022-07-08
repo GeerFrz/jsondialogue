@@ -10,19 +10,19 @@ import jfxtras.styles.jmetro.JMetro
 import jfxtras.styles.jmetro.Style
 
 
-class StageFactory (private val fxmlFile: String, private val initialStage: Stage?){
+class StageFactory(fxmlFile: String, private val initialStage: Stage?) {
 
     private var fxmlLoader: FXMLLoader = FXMLLoader(Main::class.java.getResource("fxml/$fxmlFile.fxml"))
     private val jMetro = JMetro(Style.DARK)
 
-    private fun applyCssStyles(scene: Scene){
+    private fun applyCssStyles(scene: Scene) {
 
         jMetro.scene = scene
-        scene.stylesheets.add(Main::class.java.getResource("css/custom.css").toExternalForm())
+        scene.stylesheets.add(Main::class.java.getResource("css/custom.css")?.toExternalForm() ?: "")
 
     }
 
-    fun generateModal(width: Double = 0.0, height: Double = 0.0, title: String = ""): Stage{
+    fun generateModal(width: Double = 0.0, height: Double = 0.0, title: String = ""): Stage {
         val owner: Window = Stage.getWindows().stream().filter(Window::isShowing).findFirst().orElse(null)
 
         val stage = Stage()
@@ -31,18 +31,18 @@ class StageFactory (private val fxmlFile: String, private val initialStage: Stag
 
         applyCssStyles(stage.scene)
 
-        if("" == title){
+        if ("" == title) {
             stage.title = Main.windowTitle
         } else {
             stage.title = title
         }
 
-        if(width > 0.0) stage.width = width
+        if (width > 0.0) stage.width = width
 
-        if(height > 0.0) stage.height = height
+        if (height > 0.0) stage.height = height
 
         stage.initOwner(owner)
-        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initModality(Modality.WINDOW_MODAL)
 
         stage.show()
         stage.centerOnScreen()
@@ -50,9 +50,9 @@ class StageFactory (private val fxmlFile: String, private val initialStage: Stag
         return stage
     }
 
-    fun generate(width: Double = 0.0, height: Double = 0.0): Stage{
+    fun generate(width: Double = 0.0, height: Double = 0.0): Stage {
 
-        if(initialStage!!.scene == null){
+        if (initialStage!!.scene == null) {
             val scene = Scene(fxmlLoader.load())
             initialStage.scene = scene
             applyCssStyles(scene)
@@ -60,11 +60,11 @@ class StageFactory (private val fxmlFile: String, private val initialStage: Stag
             initialStage.scene.root = fxmlLoader.load()
         }
 
-        if(width > 0){
+        if (width > 0) {
             initialStage.width = width
         }
 
-        if(height > 0){
+        if (height > 0) {
             initialStage.height = height
         }
 
@@ -75,10 +75,10 @@ class StageFactory (private val fxmlFile: String, private val initialStage: Stag
     }
 
     fun getController(): Any? {
-        return fxmlLoader.getController();
+        return fxmlLoader.getController()
     }
 
-    fun getScene(): Scene{
+    fun getScene(): Scene {
         return initialStage!!.scene
     }
 }

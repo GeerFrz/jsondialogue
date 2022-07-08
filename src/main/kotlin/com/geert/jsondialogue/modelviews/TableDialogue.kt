@@ -2,13 +2,25 @@ package com.geert.jsondialogue.modelviews
 
 import javafx.beans.property.SimpleStringProperty
 
-class TableDialogue (id: String, characterId: String, expression: String, text: String, goTo: String, options: String, values: String, setCurrentDialogue: String, signal: String, function: String) {
+class TableDialogue(
+    id: String,
+    characterId: String,
+    expression: String,
+    text: String,
+    goTo: String,
+    options: String,
+    values: String,
+    setCurrentDialogue: String,
+    signal: String,
+    function: String
+) {
 
     var id: SimpleStringProperty = SimpleStringProperty(id)
         get() = field
         set(value) {
             field = value
         }
+
     fun idProperty(): SimpleStringProperty {
         return id
     }
@@ -24,6 +36,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun expressionProperty(): SimpleStringProperty {
         return expression
     }
@@ -33,6 +46,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun textProperty(): SimpleStringProperty {
         return text
     }
@@ -42,6 +56,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun goToProperty(): SimpleStringProperty {
         return goTo
     }
@@ -51,6 +66,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun setCurrentDialogueProperty(): SimpleStringProperty {
         return setCurrentDialogue
     }
@@ -60,6 +76,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun optionsProperty(): SimpleStringProperty {
         return options
     }
@@ -69,6 +86,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun valuesProperty(): SimpleStringProperty {
         return values
     }
@@ -78,6 +96,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun signalProperty(): SimpleStringProperty {
         return signal
     }
@@ -87,6 +106,7 @@ class TableDialogue (id: String, characterId: String, expression: String, text: 
         set(value) {
             field = value
         }
+
     fun functionProperty(): SimpleStringProperty {
         return function
     }

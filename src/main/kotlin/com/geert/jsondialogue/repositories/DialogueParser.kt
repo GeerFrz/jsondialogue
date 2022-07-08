@@ -17,25 +17,26 @@ class DialogueParser {
 
         rows.forEach {
 
-            val data = TableDialogueData(it.id.get(), it.characterId.get(), it.expression.get(), it.text.get(), it.goTo.get(),
-                it.options.get(), it.values.get(), it.setCurrentDialogue.get(), it.signal.get(), it.function.get())
+            val data = TableDialogueData(
+                it.id.get(), it.characterId.get(), it.expression.get(), it.text.get(), it.goTo.get(),
+                it.options.get(), it.values.get(), it.setCurrentDialogue.get(), it.signal.get(), it.function.get()
+            )
 
             list.add(data)
         }
 
-        mapper.propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE;
+        mapper.propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE
 
         return mapper.writeValueAsString(list) ?: ""
     }
 
     fun jsonStringToMap(jsonString: String): ArrayList<TableDialogueData>? {
-        mapper.propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE;
+        mapper.propertyNamingStrategy = PropertyNamingStrategies.SNAKE_CASE
 
         try {
             return mapper.readValue(jsonString)
         } catch (ex: Exception) {
             println("Error: couldn't read json file.")
-            //ex.printStackTrace()
         }
 
         return null

@@ -33,7 +33,7 @@ class Messages {
 
         fun confirm(mpMessages: MutableList<String>, cfg: MutableMap<String, Any> = mutableMapOf()): Int {
             val title = if (cfg.contains("title")) cfg.getValue("title").toString() else "Confirm"
-            val headerText =  if (cfg.contains("headerText")) cfg.getValue("headerText").toString() else ""
+            val headerText = if (cfg.contains("headerText")) cfg.getValue("headerText").toString() else ""
 
             val alert = Alert(Alert.AlertType.CONFIRMATION)
 
@@ -76,7 +76,7 @@ class Messages {
         private fun applyCssStyleToButtonTypes(alert: Alert, styles: List<String>) {
             val buttonTypes = alert.dialogPane.buttonTypes
 
-            styles.forEach {cssClass ->
+            styles.forEach { cssClass ->
 
                 buttonTypes.forEach { type ->
                     val button = alert.dialogPane.lookupButton(type)

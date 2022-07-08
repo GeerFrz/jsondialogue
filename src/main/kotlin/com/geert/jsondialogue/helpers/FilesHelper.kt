@@ -6,10 +6,9 @@ import java.nio.file.Paths
 
 class FilesHelper {
 
-    fun readFileAsText(filePath: String): String
-            = File(filePath).readText(Charsets.UTF_8)
+    fun readFileAsText(filePath: String): String = File(filePath).readText(Charsets.UTF_8)
 
-    fun writeToFile(filePath: String, text: String){
+    fun writeToFile(filePath: String, text: String) {
 
         File(filePath).printWriter().use { out ->
             out.print(text)
@@ -17,9 +16,9 @@ class FilesHelper {
     }
 
     fun getFolderPath(fullPath: String?): String {
-        if(fullPath == null || fullPath == "") return ""
+        if (fullPath == null || fullPath == "") return ""
 
-        if(fullPath.isNullOrBlank() || fullPath == "null"){
+        if (fullPath.isBlank() || fullPath == "null") {
             return ""
         }
 
@@ -27,10 +26,10 @@ class FilesHelper {
     }
 
     fun getFileFromFullPath(fullPath: String?): String {
-        if(fullPath.isNullOrBlank() || fullPath == "null"){
+        if (fullPath.isNullOrBlank() || fullPath == "null") {
             return ""
         }
 
-        return Paths.get(fullPath).getFileName().toString();
+        return Paths.get(fullPath).fileName.toString()
     }
 }

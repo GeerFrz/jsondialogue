@@ -21,7 +21,7 @@ class CustomCellFactory<T> : TableCell<T, String?>() {
         }
 
         textField.focusedProperty().addListener { _, _, isFocused ->
-            if(isFocused){
+            if (isFocused) {
                 return@addListener
             }
 
@@ -32,7 +32,7 @@ class CustomCellFactory<T> : TableCell<T, String?>() {
     override fun startEdit() {
         super.startEdit()
 
-        if(isEmpty){
+        if (isEmpty) {
             return
         }
 
@@ -44,7 +44,7 @@ class CustomCellFactory<T> : TableCell<T, String?>() {
     override fun updateItem(item: String?, empty: Boolean) {
         super.updateItem(item, empty)
 
-        if(empty){
+        if (empty) {
             text = null
             graphic = null
         } else {

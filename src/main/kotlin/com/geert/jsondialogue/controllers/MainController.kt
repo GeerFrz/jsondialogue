@@ -9,7 +9,6 @@ import com.geert.jsondialogue.widgets.Messages
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.collections.ObservableList
-import javafx.event.ActionEvent
 import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
@@ -26,7 +25,7 @@ import java.util.*
 import kotlin.system.exitProcess
 
 
-class MainController: Initializable {
+class MainController : Initializable {
 
     private lateinit var parentStage: Stage
     private var currentFilePath: String = ""
@@ -34,33 +33,55 @@ class MainController: Initializable {
     private var currentFileName: String = ""
     private var originalListData: MutableList<TableDialogueData> = mutableListOf()
 
-    @FXML private lateinit var tableData: ObservableList<TableDialogue>
-    @FXML private lateinit var table: TableView<TableDialogue>
+    @FXML
+    private lateinit var tableData: ObservableList<TableDialogue>
+    @FXML
+    private lateinit var table: TableView<TableDialogue>
 
-    @FXML private lateinit var id: TableColumn<TableDialogue, String>
-    @FXML private lateinit var characterId: TableColumn<TableDialogue, String>
-    @FXML private lateinit var expression: TableColumn<TableDialogue, String>
-    @FXML private lateinit var text: TableColumn<TableDialogue, String>
-    @FXML private lateinit var options: TableColumn<TableDialogue, String>
-    @FXML private lateinit var values: TableColumn<TableDialogue, String>
-    @FXML private lateinit var goTo: TableColumn<TableDialogue, String>
-    @FXML private lateinit var setCurrentDialogue: TableColumn<TableDialogue, String>
-    @FXML private lateinit var signal: TableColumn<TableDialogue, String>
-    @FXML private lateinit var function: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var id: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var characterId: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var expression: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var text: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var options: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var values: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var goTo: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var setCurrentDialogue: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var signal: TableColumn<TableDialogue, String>
+    @FXML
+    private lateinit var function: TableColumn<TableDialogue, String>
 
-    @FXML private lateinit var btnAdd: Button
-    @FXML private lateinit var btnClearAll: Button
-    @FXML private lateinit var btnRemove: Button
-    @FXML private lateinit var btnSave: Button
+    @FXML
+    private lateinit var btnAdd: Button
+    @FXML
+    private lateinit var btnClearAll: Button
+    @FXML
+    private lateinit var btnRemove: Button
+    @FXML
+    private lateinit var btnSave: Button
 
-    @FXML private lateinit var miOpenJsonFile: MenuItem
-    @FXML private lateinit var miCloseFile: MenuItem
-    @FXML private lateinit var miExit: MenuItem
-    @FXML private lateinit var miCopy: MenuItem
-    @FXML private lateinit var miAbout: MenuItem
-    @FXML private lateinit var miDebugTest: MenuItem
+    @FXML
+    private lateinit var miOpenJsonFile: MenuItem
+    @FXML
+    private lateinit var miCloseFile: MenuItem
+    @FXML
+    private lateinit var miExit: MenuItem
+    @FXML
+    private lateinit var miCopy: MenuItem
+    @FXML
+    private lateinit var miAbout: MenuItem
+    @FXML
+    private lateinit var miDebugTest: MenuItem
 
-    fun configure(stage: Stage){
+    fun configure(stage: Stage) {
         parentStage = stage
 
         setOnCloseStage(parentStage)
@@ -74,7 +95,7 @@ class MainController: Initializable {
         }
 
         btnAdd.setOnAction {
-            addRow(it)
+            addRow()
         }
 
         btnRemove.setOnAction {
@@ -108,12 +129,12 @@ class MainController: Initializable {
         currentFilePath = ""
     }
 
-    private fun openJsonFile(){
+    private fun openJsonFile() {
         val filesHelper = FilesHelper()
 
         val fileName = openFileChooser(parentStage, false) ?: ""
 
-        if(fileName == "" || fileName == "null"){
+        if (fileName == "" || fileName == "null") {
             println("No file selected.")
             return
         }
@@ -123,7 +144,7 @@ class MainController: Initializable {
         val dialogueParser = DialogueParser()
 
         val listData = dialogueParser.jsonStringToMap(fileContent)
-        if(listData == null){
+        if (listData == null) {
             val msg = mutableListOf<String>()
             msg.add("Reading JSON file was not possible.")
             msg.add("Please, compare the file structure with the structure in Help -> JSON file structure.")
@@ -153,7 +174,7 @@ class MainController: Initializable {
         )
     }
 
-    private fun updateTableData(listData: ArrayList<TableDialogueData>){
+    private fun updateTableData(listData: ArrayList<TableDialogueData>) {
         table.items.removeAll()
         tableData.clear()
 
@@ -165,7 +186,7 @@ class MainController: Initializable {
         table.parent.requestFocus()
     }
 
-    private fun setOnCloseStage(stage: Stage){
+    private fun setOnCloseStage(stage: Stage) {
         stage.onCloseRequest = EventHandler {
             clearCurrentAndOriginalData()
 
@@ -175,25 +196,25 @@ class MainController: Initializable {
     }
 
     private fun clearAll(showWarning: Boolean = true): Int {
-        if(tableData.isEmpty()){
+        if (tableData.isEmpty()) {
             Messages.alert(mutableListOf("The table is already empty.")).show()
             return 0
         }
 
-        if(showWarning){
+        if (showWarning) {
             val cfgConfirm: MutableMap<String, Any> = mutableMapOf("title" to "Confirm")
 
             val nochangesMade = noChangesMade()
 
             val msg: MutableList<String> = mutableListOf()
 
-            if(!nochangesMade){
+            if (!nochangesMade) {
                 msg.add("All changes will be lost.")
             }
 
             msg.add("Do you really want to clear the whole table?")
 
-            if(Messages.confirm(msg, cfgConfirm) == 0){
+            if (Messages.confirm(msg, cfgConfirm) == 0) {
                 return 0
             }
         }
@@ -204,16 +225,16 @@ class MainController: Initializable {
         return 0
     }
 
-    private fun addRow(event: ActionEvent){
+    private fun addRow() {
 
         val row = TableDialogue("", "", "", "", "", "", "", "", "", "")
 
         tableData.add(row)
     }
 
-    private fun removeRow(){
+    private fun removeRow() {
         val row = table.selectionModel.selectedItem
-        if(row == null){
+        if (row == null) {
             Messages.alert(mutableListOf("You have to select a row."))
             return
         }
@@ -221,7 +242,7 @@ class MainController: Initializable {
         val cfgConfirm: MutableMap<String, Any> = mutableMapOf("title" to "Confirm")
         val msg = mutableListOf("Do you really want to remove the selected row?")
 
-        if(Messages.confirm(msg, cfgConfirm) == 0){
+        if (Messages.confirm(msg, cfgConfirm) == 0) {
             return
         }
 
@@ -235,7 +256,7 @@ class MainController: Initializable {
         val extFilter = FileChooser.ExtensionFilter("JSON files (*.json)", "*.json")
         fileChooser.extensionFilters.add(extFilter)
 
-        if(currentFolderPath != "") {
+        if (currentFolderPath != "") {
 
             var defaultDir = File(currentFolderPath)
             if (!defaultDir.canRead()) {
@@ -246,7 +267,7 @@ class MainController: Initializable {
             fileChooser.initialDirectory = defaultDir
         }
 
-        return if(saveFile){
+        return if (saveFile) {
 
             fileChooser.showSaveDialog(primaryStage)
         } else {
@@ -254,9 +275,9 @@ class MainController: Initializable {
         }
     }
 
-    private fun saveAsJson(){
+    private fun saveAsJson() {
 
-        if(tableData.isEmpty()){
+        if (tableData.isEmpty()) {
             Messages.alert(mutableListOf("The table is empty.")).show()
             return
         }
@@ -278,7 +299,7 @@ class MainController: Initializable {
     }
 
     private fun configureTable() {
-        tableData =  FXCollections.observableArrayList()
+        tableData = FXCollections.observableArrayList()
 
         id.cellValueFactory = PropertyValueFactory("id")
         characterId.cellValueFactory = PropertyValueFactory("characterId")
@@ -341,7 +362,7 @@ class MainController: Initializable {
         return originalListData == tmpData
     }
 
-    private fun setOriginalData(){
+    private fun setOriginalData() {
         val tmpData = mutableListOf<TableDialogueData>()
 
         tableData.forEach {
@@ -352,7 +373,7 @@ class MainController: Initializable {
         originalListData = tmpData
     }
 
-    private fun clearCurrentAndOriginalData(){
+    private fun clearCurrentAndOriginalData() {
         tableData.clear()
         originalListData.clear()
     }
@@ -369,14 +390,14 @@ class MainController: Initializable {
         printCurrentData()
     }
 
-    private fun printOriginalData(){
+    private fun printOriginalData() {
         println("*** Original data:")
         originalListData.forEach {
             println(it.expression)
         }
     }
 
-    private fun printCurrentData(){
+    private fun printCurrentData() {
         println("*** Current data:")
         tableData.forEach {
             println(it.expression)
