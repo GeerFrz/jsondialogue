@@ -1,0 +1,43 @@
+.root{
+    -fx-background-color: background_color;
+}
+
+.custom-icon {
+    -fx-fill: white;
+}
+
+/* Tables */
+
+.table-view {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-padding: 0em 0em 0em 1em;
+}
+
+.table-view .column-header .label {
+    -fx-padding: 0.2em 0.5em 0.2em 0;
+}
+
+.table-cell {
+    -fx-padding: 0.2em 0.5em 0.5em 0.2em;
+}
+
+.list-cell:empty, .table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:filled:hover {
+    -fx-background-color: #CC33FF;
+    -fx-border-width: 0;
+}
+
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell .table-cell:selected:focused {
+    -fx-background-color: cell_selected_color;
+    -fx-border-width: 0;
+}
+
+
+/* End of tables */
+
